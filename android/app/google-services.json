@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "602166121160",
+    "project_id": "healthlife-2023",
+    "storage_bucket": "healthlife-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602166121160:android:dc7911f15db2d466c10bfd",
+        "android_client_info": {
+          "package_name": "com.healthlife"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0LfRH4bwSCAOvuwfO81mFE0BUvDBlZTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

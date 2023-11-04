@@ -3,8 +3,11 @@ import React, { useContext, useState } from "react";
 
 const Welcome = (props) => {
     const { navigation } = props;
-    const pressHandle = () => {
+    const pressHandleLogin = () => {
         navigation.navigate('Login')
+    }
+    const pressHandleRegister = () => {
+        navigation.navigate('Register')
     }
     return (
         <SafeAreaView style={loginStyle.container}>
@@ -14,13 +17,13 @@ const Welcome = (props) => {
             />
             <Pressable
                 style={loginStyle.buttonContainer}
-                onPress= {pressHandle}
+                onPress= {pressHandleLogin}
             >
                 <Text style={loginStyle.buttonLoginLabel}>Login</Text>
             </Pressable>
             <Pressable
                 style={loginStyle.buttonContainer}
-                onPress={''}
+                onPress={pressHandleRegister}
             >
                 <Text style={loginStyle.buttonLoginLabel}>Sign in</Text>
             </Pressable>

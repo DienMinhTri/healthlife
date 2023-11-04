@@ -1,11 +1,12 @@
 import { SafeAreaView, StyleSheet, Text, Image, TextInput, Pressable } from "react-native";
 import React, { useContext, useState } from "react";
-import auth from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth';
 
 
-const Login = (props) => {
+const Register = (props) => {
     const [email, onChangeEmail] = useState('');
     const [password, onChangePassword] = useState('');
+    const [confirmPassword, onChangeConfirmPassword] = useState('');
     const { navigation } = props;
     return (
         <SafeAreaView style={loginStyle.container}>
@@ -30,28 +31,37 @@ const Login = (props) => {
                     keyboardType="numeric"
                     secureTextEntry={true}
                 />
+                <TextInput
+                    value={confirmPassword}
+                    onChangeText={onChangeConfirmPassword}
+                    style={loginStyle.input}
+                    placeholder="Confirm Paswword"
+                    keyboardType="numeric"
+                    secureTextEntry={true}
+                />
             </SafeAreaView>
             <Pressable
                 style={loginStyle.buttonContainer}
                 onPress={() => {
-                    auth().signInWithEmailAndPassword(email, password).then(() => {
-                        console.log('User signed in  using email - password');
-                        navigation.navigate("Home");
-                    })
+                    auth()
+                        .createUserWithEmailAndPassword(email, password)
+                        .then(() => {
+                            console.log('User account created & signed in!');
+                            navigation.navigate("Home");
+                        })
                         .catch(error => {
-                            if (error.code === 'auth/operation-not-allowed') {
-                                console.log('Enable email - password in your firebase console.');
+                            if (error.code === 'auth/email-already-in-use') {
+                                console.log('That email address is already in use!');
                             }
-                            if (error.code === 'auth/wrong-password') {
-                                console.log('The password is invalid!!');
+
+                            if (error.code === 'auth/invalid-email') {
+                                console.log('That email address is invalid!');
                             }
 
                             console.error(error);
-                        })
+                        });
                 }}
-            >
-                <Text style={loginStyle.buttonLoginLabel}>Submit</Text>
-            </Pressable>
+            ><Text style={loginStyle.buttonLoginLabel}>Register</Text></Pressable>
             <Text
                 style={loginStyle.buttonText}
                 onPress={() => navigation.goBack()}>
@@ -61,7 +71,7 @@ const Login = (props) => {
     )
 }
 
-export default Login
+export default Register
 
 const loginStyle = StyleSheet.create({
 
@@ -82,14 +92,14 @@ const loginStyle = StyleSheet.create({
         height: 62,
         borderRadius: 50,
         borderWidth: 1,
-        marginTop: 80,
+        marginTop: 40,
         backgroundColor: '#86EF61',
         alignItems: 'center',
         justifyContent: 'space-around',
         marginHorizontal: '30%',
     },
     inputContainer: {
-        marginTop: 30,
+        marginTop: 10,
         alignItems: 'center',
     },
     input: {
